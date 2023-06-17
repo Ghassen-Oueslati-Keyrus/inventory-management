@@ -1,0 +1,17 @@
+#logo{
+    width: 200px;
+    height: 100px;
+}
+#user{
+    width: 35px;
+    height: 35px;
+    text-align: center;
+    padding-top: 10px;
+    font-size: x-large;
+}
+#menu{
+    height: 30px;
+    border-top: thick solid #890d0e;
+    border-top-width: 0.5px;
+}
+a{text-decoration:none;}

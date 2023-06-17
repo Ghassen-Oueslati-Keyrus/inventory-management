@@ -1,0 +1,77 @@
+<div class="hero">
+    <div class="container-xl">
+        <div class="table-responsive">
+            <div class="table-wrapper">
+                <div class="table-title">
+                    <div class="row">
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="section-header">
+                                <p id="font" class="mb-2">Liste des devis</p>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-lg-4">
+                            <div class="input-group mb-3">
+                                <input type="text" id="recherche" class="form-control" placeholder="Rechercher..."
+                                    [(ngModel)]="search" aria-label="Rechercher" aria-describedby="basic-addon2" />
+                                <button class="button" type="button" (click)="getAllDevis()"><i
+                                        class="bi bi-search"></i></button>
+                            </div>
+                        </div>
+                        <div class="col-sm-4 col-lg-4">
+                            <a routerLink="/addDevis" class="btn btn-success" data-toggle="modal"><i
+                                    class="material-icons">&#xE147;</i> <span>Ajouter un nouveau devis</span></a>
+                        </div>
+                    </div>
+                </div>
+                <table class="table table-striped table-hover">
+                    <thead>
+                        <tr>
+                            <th>Entreprise</th>
+                            <th>Contact utilisateur</th>
+                            <th>Pays</th>
+                            <th>Code Postal</th>
+                            <th>Numéro</th>
+                            <th>Préference de contact</th>
+                            <th>Détailles</th>
+                            <th>Actions</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr *ngFor="let d of devis | paginate : { itemsPerPage: itemsPerPage, currentPage: p }">
+                            <td>{{ d.entreprise }}</td>
+                            <td>
+                                Prénom : {{d.user.firstName}}<br>
+                                Nom : {{d.user.lastName}}<br>
+                                Pseudonyme : {{d.user.username}}<br>
+                                Email : {{d.user.email}}
+                            </td>
+                            <td>{{ d.country }}</td>
+                            <td>{{ d.codePostal }}</td>
+                            <td>{{ d.number }}</td>
+                            <td>{{ d.preference }}</td>
+                            <td>{{ d.details }}</td>
+
+                            <td>
+                                <a (click)="deleteDevis(d)" class="delete col-lg-1" data-toggle="modal">
+                                    <i class="material-icons" data-toggle="tooltip" title="Supprimer"
+                                        style="cursor: pointer;">&#xE872;</i></a>
+                            </td>
+                        </tr>
+                        <tr>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </div>
+        <div class="clearfix row">
+            <div class="col-lg-1"></div>
+            <div class="hint-text col-lg-8">
+                {{ devisNumber }} <b></b> devi<span *ngIf="devisNumber>1">s</span> <b></b> trouvé<span
+                    *ngIf="devisNumber>1">s</span>
+            </div>
+            <div class="col-lg-3">
+                <pagination-controls (pageChange)="p = $event"></pagination-controls>
+            </div>
+        </div>
+    </div>
+</div>

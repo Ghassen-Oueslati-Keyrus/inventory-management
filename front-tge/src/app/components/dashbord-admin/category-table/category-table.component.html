@@ -1,0 +1,42 @@
+<div id="login" class="hero d-flex align-items-center" style="padding-top: 50px;">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="login-form border p-5">
+            <div class="section-header">
+              <p id="font" class="mb-2" style="padding-bottom: 10px;">Liste des categories</p> 
+            </div>
+            <ul class="list-group">
+              <li *ngFor="let cat of categories" [value]="cat.id" class="list-group-item">
+                <div class="row"> 
+                  <div class="col-lg-11">{{cat.name}}  </div>           
+                 <a (click)="removeCategory(cat.id)" class="delete col-lg-1" data-toggle="modal">
+                  <i class="material-icons" data-toggle="tooltip" title="Supprimer" style="cursor: pointer;">&#xE872;</i></a>
+                </div>
+                </li>
+             
+            </ul><br><br>
+              <form [formGroup]="categoryForm" (ngSubmit)="addCategory()">
+                <div class="form-group  mb-4">
+                  <div class="section-header">
+                    <p id="title" class="mb-2">Ajouter une nouvelle categorie</p> 
+                  </div>
+                  <input type="text" class="form-control" placeholder="Nom du Categorie" [(ngModel)]="category.name"
+                    formControlName="name">
+                  <div
+                    *ngIf="categoryForm.controls['name'].invalid && (categoryForm.controls['name'].dirty || categoryForm.controls['name'].touched)">
+                    <div *ngIf="categoryForm.controls['name'].errors.required" style="color : red;"><i
+                        class="bi bi-info-circle" aria-required="true"> </i> Le nom du categorie est obligatoire!
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-md-2"></div>
+                  <input type="submit" class="btn-book-a-table col-lg-3" style="background-color:green; box-shadow: green;"  value="Ajouter" />
+                </div>  
+            </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>

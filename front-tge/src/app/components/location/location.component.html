@@ -1,0 +1,535 @@
+<!-- ============== SECTION PAGETOP END// ============== -->
+
+<!-- ============== SECTION CONTENT ============== -->
+<section class="padding-y">
+  <div class="container">
+    <div class="section-header">
+      <p id="font">Nos <span>locations</span></p>
+      <br />
+      <h2 style="font-size: small">Consultez nos <span>locations</span></h2>
+    </div>
+
+    <div class="row">
+      <aside class="col-lg-3">
+        <button
+          class="btn btn-outline-secondary mb-3 w-100 d-lg-none"
+          data-bs-toggle="collapse"
+          data-bs-target="#aside_filter"
+        >
+          Show filter
+        </button>
+
+        <!-- ===== Card for sidebar filter ===== -->
+        <div id="aside_filter" class="collapse card d-lg-block mb-5">
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_categories"
+              >
+                <i class="icon-control fa fa-chevron-down"></i> Categories
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_categories">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let cat of categories">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    (change)="categorieSelected($event, cat.id)"
+                  />
+                  <span class="form-check-label"> {{ cat.name }} </span>
+                  <b class="badge rounded-pill bg-gray-dark float-end">120</b>
+                </label>
+                <!-- form-check end.// -->
+              </div>
+              <!-- card-body .// -->
+            </div>
+            <!-- collapse.// -->
+          </article>
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_disponibilite"
+              >
+                <i class="icon-control fa fa-chevron-down"></i> Disponibilité
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_disponibilite">
+              <div class="card-body">
+                <label class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    [(ngModel)]="enStock"
+                    (change)="showDisponibility()"
+                  />
+                  <span class="form-check-label"> En Stock </span>
+                  <b class="badge rounded-pill bg-gray-dark float-end">120</b>
+                </label>
+                <!-- form-check end.// -->
+                <label class="form-check mb-2">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    [(ngModel)]="horsStock"
+                    (change)="showDisponibility()"
+                  />
+                  <span class="form-check-label"> Hors Stock </span>
+                  <b class="badge rounded-pill bg-gray-dark float-end">120</b>
+                </label>
+                <!-- form-check end.// -->
+              </div>
+              <!-- card-body .// -->
+            </div>
+            <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="brands.length>0">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_brands"
+              >
+                <i class="icon-control fa fa-chevron-down"></i> Marques
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_brands">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let brand of brands">
+                  <input
+                    class="form-check-input"
+                    type="checkbox"
+                    value=""
+                    (change)="brandsSelected($event, brand)"
+                  />
+                  <span class="form-check-label"> {{ brand }} </span>
+                  <b class="badge rounded-pill bg-gray-dark float-end">120</b>
+                </label>
+                <!-- form-check end.// -->
+              </div>
+              <!-- card-body .// -->
+            </div>
+            <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="types.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_type">
+                <i class="icon-control fa fa-chevron-down"></i> Type groupe electrogéne
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_type">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let type of types">
+                  <input class="form-check-input" type="checkbox" value="" (change)="typesSelected($event,type)">
+                  <span class="form-check-label"> {{type}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="puissances.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_puissance">
+                <i class="icon-control fa fa-chevron-down"></i> Puissance continue
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_puissance">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let puissance of puissances">
+                  <input class="form-check-input" type="checkbox" value="" (change)="puissancesSelected($event,puissance)">
+                  <span class="form-check-label"> {{puissance}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="moteurs.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_moteurs">
+                <i class="icon-control fa fa-chevron-down"></i> Moteurs
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_moteurs">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let moteur of moteurs">
+                  <input class="form-check-input" type="checkbox" value="" (change)="brandsSelected($event,moteur)">
+                  <span class="form-check-label"> {{moteur}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="alternateurs.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_alternateurs">
+                <i class="icon-control fa fa-chevron-down"></i> Alternateurs
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_alternateurs">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let alternateur of alternateurs">
+                  <input class="form-check-input" type="checkbox" value="" (change)="alternateursSelected($event,alternateur)">
+                  <span class="form-check-label"> {{alternateur}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="refroidissements.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_refroidissements">
+                <i class="icon-control fa fa-chevron-down"></i> Refroidissement
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_refroidissements">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let refroidissement of refroidissements">
+                  <input class="form-check-input" type="checkbox" value="" (change)="refroidissementsSelected($event,refroidissement)">
+                  <span class="form-check-label"> {{refroidissement}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="nombreCylindres.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_nbrcylindres">
+                <i class="icon-control fa fa-chevron-down"></i> Nombre de cylindres
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_nbrcylindres">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let nbr of nombreCylindres">
+                  <input class="form-check-input" type="checkbox" value="" (change)="nombreCylindresSelected($event,nbr)">
+                  <span class="form-check-label"> {{nbr}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="demarrages.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_demarage">
+                <i class="icon-control fa fa-chevron-down"></i> Démarrage
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_demarage">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let demarage of demarrages">
+                  <input class="form-check-input" type="checkbox" value="" (change)="demaragesSelected($event,demarage)">
+                  <span class="form-check-label"> {{demarage}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="carteDemarrages.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_carteDemarrage">
+                <i class="icon-control fa fa-chevron-down"></i> Carte de démarrage
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_carteDemarrage">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let carteDemarrage of carteDemarrages">
+                  <input class="form-check-input" type="checkbox" value="" (change)="carteDemarragesSelected($event,carteDemarrage)">
+                  <span class="form-check-label"> {{carteDemarrage}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="typeCarburant.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_typeCarburant">
+                <i class="icon-control fa fa-chevron-down"></i> Type de carburant
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_typeCarburant">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let typeCarburant of typeCarburant">
+                  <input class="form-check-input" type="checkbox" value="" (change)="typeCarburantsSelected($event,typeCarburant)">
+                  <span class="form-check-label"> {{typeCarburant}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="vitesseMoteur.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_vitesseMoteur">
+                <i class="icon-control fa fa-chevron-down"></i> Vitesse moteur
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_vitesseMoteur">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let vitesseMoteur of vitesseMoteur">
+                  <input class="form-check-input" type="checkbox" value="" (change)="vitesseMoteursSelected($event,vitesseMoteur)">
+                  <span class="form-check-label"> {{vitesseMoteur}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group"  *ngIf="amperage.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_amperage">
+                <i class="icon-control fa fa-chevron-down"></i> Ampérage
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_amperage">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let amperage of amperage">
+                  <input class="form-check-input" type="checkbox" value="" (change)="amperagesSelected($event,amperage)">
+                  <span class="form-check-label"> {{amperage}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="typeAlimentation.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_typeAlimentation">
+                <i class="icon-control fa fa-chevron-down"></i> Type d'alimentation électrique
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_typeAlimentation">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let typeAlimentation of typeAlimentation">
+                  <input class="form-check-input" type="checkbox" value="" (change)="typeAlimentationsSelected($event,typeAlimentation)">
+                  <span class="form-check-label"> {{typeAlimentation}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="capotages.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_capotage">
+                <i class="icon-control fa fa-chevron-down"></i> Capotage
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_capotage">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let capotage of capotages">
+                  <input class="form-check-input" type="checkbox" value="" (change)="capotagesSelected($event,capotage)">
+                  <span class="form-check-label"> {{capotage}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="nombreHeures.length>0">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside_nombreHeures"
+              >
+                <i class="icon-control fa fa-chevron-down"></i> Nombre d'heures
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_nombreHeures">
+              <div class="card-body">
+                <ngx-slider
+                  [(value)]="minHeure"
+                  [(highValue)]="maxHeure"
+                  [options]="options1"
+                ></ngx-slider>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label for="min" class="form-label">Min</label>
+                    <input
+                      class="form-control"
+                      id="min"
+                      placeholder="0Dt"
+                      type="number"
+                      [(ngModel)]="minHeure"
+                    />
+                  </div>
+                  <!-- col end.// -->
+
+                  <div class="col-6">
+                    <label for="max" class="form-label">Max</label>
+                    <input
+                      class="form-control"
+                      id="max"
+                      placeholder="1,0000 Dt"
+                      type="number"
+                      [(ngModel)]="maxHeure"
+                    />
+                  </div>
+                  <!-- col end.// -->
+                </div>
+                <!-- row end.// -->
+                <button class="btn btn-light w-100" type="button" (click)="getAllProducts()">
+                  Filtrer
+                </button>
+              </div>
+            </div>
+          </article>
+          <article class="filter-group" *ngIf="typeCarburant.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_typeCarburant">
+                <i class="icon-control fa fa-chevron-down"></i> Type de carburant
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_typeCarburant">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let typeCarburant of typeCarburant">
+                  <input class="form-check-input" type="checkbox" value="" (change)="typeCarburantsSelected($event,typeCarburant)">
+                  <span class="form-check-label"> {{typeCarburant}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="vitesseMoteur.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_vitesseMoteur">
+                <i class="icon-control fa fa-chevron-down"></i> Vitesse moteur
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_vitesseMoteur">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let vitesseMoteur of vitesseMoteur">
+                  <input class="form-check-input" type="checkbox" value="" (change)="vitesseMoteursSelected($event,vitesseMoteur)">
+                  <span class="form-check-label"> {{vitesseMoteur}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="amperage.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_amperage">
+                <i class="icon-control fa fa-chevron-down"></i> Ampérage
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_amperage">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let amperage of amperage">
+                  <input class="form-check-input" type="checkbox" value="" (change)="amperagesSelected($event,amperage)">
+                  <span class="form-check-label"> {{amperage}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group" *ngIf="typeAlimentation.length>0">
+            <header class="card-header">
+              <a href="#" class="title" data-bs-toggle="collapse" data-bs-target="#collapse_aside_typeAlimentation">
+                <i class="icon-control fa fa-chevron-down"></i> Type d'alimentation électrique
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside_typeAlimentation">
+              <div class="card-body">
+                <label class="form-check mb-2" *ngFor="let typeAlimentation of typeAlimentation">
+                  <input class="form-check-input" type="checkbox" value="" (change)="typeAlimentationsSelected($event,typeAlimentation)">
+                  <span class="form-check-label"> {{typeAlimentation}} </span>
+                </label> <!-- form-check end.// -->
+
+              </div> <!-- card-body .// -->
+            </div> <!-- collapse.// -->
+          </article>
+          <article class="filter-group">
+            <header class="card-header">
+              <a
+                href="#"
+                class="title"
+                data-bs-toggle="collapse"
+                data-bs-target="#collapse_aside2"
+              >
+                <i class="icon-control fa fa-chevron-down"></i> Price
+              </a>
+            </header>
+            <div class="collapse show" id="collapse_aside2">
+              <div class="card-body">
+                <ngx-slider
+                  [(value)]="minValue"
+                  [(highValue)]="maxValue"
+                  [options]="options"
+                ></ngx-slider>
+                <div class="row mb-3">
+                  <div class="col-6">
+                    <label for="min" class="form-label">Min</label>
+                    <input
+                      class="form-control"
+                      id="min"
+                      placeholder="$0"
+                      type="number"
+                      [(ngModel)]="minValue"
+                    />
+                  </div>
+                  <!-- col end.// -->
+
+                  <div class="col-6">
+                    <label for="max" class="form-label">Max</label>
+                    <input
+                      class="form-control"
+                      id="max"
+                      placeholder="$1,0000"
+                      type="number"
+                      [(ngModel)]="maxValue"
+                    />
+                  </div>
+                  <!-- col end.// -->
+                </div>
+                <!-- row end.// -->
+                <button class="btn btn-light w-100" type="button" (click)="filterProducts()">
+                  Filtrer
+                </button>
+              </div>
+            </div>
+          </article>
+        </div>
+      </aside>
+      <!-- col .// -->
+      <main class="col-lg-9">
+        <header class="align-items-center border-bottom mb-4 pb-3">
+          <div class="row">
+            <strong class="d-block py-2 col-lg-10"
+              >{{ products.length }} produits trouvées
+            </strong>
+            <button type="button" class="btn btn-lg col-lg-2" disabled>
+              Location
+            </button>
+          </div>
+        </header>
+
+        <!-- ========= content items ========= -->
+        <div class="row">
+          <div
+            class="col-lg-4 col-12 col-md-6 col-sm-8 mb-5"
+            *ngFor="
+              let prod of products
+                | paginate : { itemsPerPage: itemsPerPage, currentPage: p }
+            "
+          >
+            <app-location-product [product]="prod"></app-location-product>
+          </div>
+        </div>
+        <!-- row end.// -->
+        <hr />
+        <div class="row">
+          <div class="col-lg-8"></div>
+          <div class="col-lg-4">
+            <pagination-controls
+              (pageChange)="p = $event"
+            ></pagination-controls>
+          </div>
+        </div>
+      </main>
+    </div>
+  </div>
+</section>

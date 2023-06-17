@@ -1,0 +1,179 @@
+<div id="login" class="hero d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-lg-6">
+        <div class="login-form border p-5">
+            <div class="section-header">
+              <p id="font"> Modifier votre Profile</p><br>
+            </div>
+            <form [formGroup]='profileForm'>
+              <div class="form-row">
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label>Nom</label>
+                    <input type="text" class="form-control" formControlName="firstName"
+                      [(ngModel)]="currentUser.firstName">
+                    <div *ngIf="profileForm.controls['firstName'].invalid && 
+                    (profileForm.controls['firstName'].dirty || 
+                    profileForm.controls['firstName'].touched)">
+                      <div *ngIf="profileForm.controls['firstName'].errors.minlength" style="color: red;">
+                        <i class="bi bi-info-circle" aria-required="true"> </i>Le nom doit avoir au moins 4 caractéres !
+                      </div>
+                      <div *ngIf="profileForm.controls['firstName'].errors.required" style="color: red;">
+                        <i class="bi bi-info-circle" aria-required="true"></i> Le nom est obligatoire !
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+                <div class="col-lg-12">
+                  <div class="form-group">
+                    <label>Prenom</label>
+                    <input type="text" class="form-control" [(ngModel)]="currentUser.lastName"
+                      formControlName="lastName">
+                    <div *ngIf="profileForm.controls['lastName'].invalid && 
+                    (profileForm.controls['lastName'].dirty || 
+                    profileForm.controls['lastName'].touched)">
+                      <div *ngIf="profileForm.controls['lastName'].errors.minlength" style="color: red;">
+                        <i class="bi bi-info-circle" aria-required="true"></i> Le prenom doit avoir au moins 3
+                        caractéres !
+                      </div>
+                      <div *ngIf="profileForm.controls['lastName'].errors.required" style="color: red;">
+                        <i class="bi bi-info-circle" aria-required="true"></i> Le prenom est obligatoire !
+                      </div>
+                    </div>
+                  </div>
+                </div><br>
+              </div>
+
+              <div class="form-group mb-4">
+                <label>Email </label>
+                <input type="text" class="form-control" [value]="currentUser.email" disabled>
+              </div>
+
+              <div class="form-group mb-4">
+                <label>Username </label>
+                <input type="text" class="form-control" [(ngModel)]="currentUser.username"
+                  (keydown)="errorUsernameCancel()" formControlName="Username" (blur)="usernameVerification()">
+                <div *ngIf="profileForm.controls['Username'].invalid && 
+                  (profileForm.controls['Username'].dirty || 
+                  profileForm.controls['Username'].touched)">
+                  <div *ngIf="profileForm.controls['Username'].errors.minlength" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le pseudonyme doit avoir au moins 8
+                    caractéres
+                    !
+                  </div>
+                  <div *ngIf="profileForm.controls['Username'].errors.required" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le pseudonyme est obligatoire !
+                  </div>
+                </div>
+                <div *ngIf="usernameExists" style="color : red;"><i class="bi bi-info-circle" aria-required="true"></i>
+                  Pseudonyme déjà utilisé</div>
+              </div>
+            </form>
+            <a class="btn-book-a-table" (click)="changeProfile()">Sauvegarder</a>
+
+            <br><br>
+
+            <a id="mdp" *ngIf="!afficherFormulaire" (click)="afficherFormulaire = !afficherFormulaire">Veuillez changer votre mot de passe ? ▼</a>
+            <a id="mdp" *ngIf="afficherFormulaire" (click)="afficherFormulaire = !afficherFormulaire">Annuler !</a>
+            <form class="mt-5" [formGroup]='changePasswordForm' *ngIf="afficherFormulaire">
+              <h4>Changez mot de passe</h4>
+
+              <div class="form-group">
+                <label>Mot de passe courant </label>
+                <input type="password" class="form-control" placeholder="********" formControlName="currentPassword">
+                <div
+                  *ngIf="changePasswordForm.controls['currentPassword'].invalid && (changePasswordForm.controls['currentPassword'].dirty || changePasswordForm.controls['currentPassword'].touched)">
+                  <div *ngIf="changePasswordForm.controls['currentPassword'].errors.required" style="color : red;"> <i
+                      class="bi bi-info-circle" aria-required="true"></i> L'ancien mot de passe est
+                    obligatoire !</div>
+                </div>
+              </div><br>
+              <div class="form-group mb-4">
+                <label for="#">Votre nouveau Mot de passe</label>
+                <input type="password" class="form-control" placeholder="********" formControlName="newPassword">
+                <div
+                  *ngIf="changePasswordForm.controls['newPassword'].invalid && (changePasswordForm.controls['newPassword'].dirty || changePasswordForm.controls['newPassword'].touched)">
+                  <div *ngIf="changePasswordForm.controls['newPassword'].errors.minlength" style="color : red;"><i
+                      class="bi bi-info-circle" aria-required="true"></i> Mot de passe doit
+                    avoir
+                    au moins 8 caractéres !</div>
+                  <div *ngIf="changePasswordForm.controls['newPassword'].errors.required" style="color : red;"> <i
+                      class="bi bi-info-circle" aria-required="true"></i> Mot de passe est
+                    obligatoire !</div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="#">Confirmer votre mot de passe</label>
+                <input type="password" class="form-control" placeholder="********"
+                  formControlName="confirmationPassword">
+                <div
+                  *ngIf="changePasswordForm.controls['confirmationPassword'].invalid && (changePasswordForm.controls['confirmationPassword'].dirty || changePasswordForm.controls['confirmationPassword'].touched)">
+                  <div *ngIf="changePasswordForm.controls['confirmationPassword'].errors.confirmPasswordValidator"
+                    style="color : red;"> <i class="bi bi-info-circle" aria-required="true"></i> La confirmation est
+                    incorrecte !</div>
+                  <div *ngIf="changePasswordForm.controls['confirmationPassword'].errors.required" style="color : red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> La
+                    confirmation du mot de passe est obligatoire !
+                  </div>
+                </div>
+              </div><br>
+
+              <a class="btn-book-a-table" (click)="changePassword(changePasswordForm.value)">Changer</a>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+<!-- <div id="login" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="login-form border p-5">
+            <div class="section-header">
+              <p id="font"> Modifier votre Profile</p><br>
+            </div>
+                <form action="#">   
+                    <div class="form-row" >
+                      <div class="form-group">
+                        <label style="margin-bottom: 5px;">Nom</label>
+                        <input type="text" class="form-control" placeholder="John" [value]="currentUser.username" style="margin-bottom: 10px;">
+                      </div>
+                    </div>
+                    <div class="form-row">
+                      <div class="form-group">
+                        <label style="margin-bottom: 5px;" >Prenom</label>
+                        <input type="text" class="form-control" placeholder="Jas" style="margin-bottom: 10px;">
+                      </div>
+                    </div>
+                  <div class="form-group mb-4">
+                    <label style="margin-bottom: 5px;">Email </label>
+                    <input type="text" class="form-control" placeholder="therichposts@gmail.com"style="margin-bottom: 10px;">
+                  </div>
+                </form>
+  
+                <form action="#" class="mt-5">
+                  <h3>Changez mot de passe</h3><br>
+  
+                  <div class="form-group">
+                    <label style="margin-bottom: 5px;">Mot de passe courant </label>
+                    <input type="text" class="form-control" placeholder="" style="margin-bottom: 10px;">
+                    
+                  </div>
+                  <div class="form-group">
+                    <label style="margin-bottom: 5px;" >Nouveau mot de passe</label>
+                    <input type="text" class="form-control" placeholder="" style="margin-bottom: 10px;">
+                  </div>
+                  <div class="form-group">
+                    <label style="margin-bottom: 5px;">Confirmation du nouveau mot de passe</label>
+                    <input type="text" class="form-control" placeholder="" style="margin-bottom: 10px;">
+                  </div>
+  
+                 <br> <a href="#" class="btn-book-a-table">Sauvegarder</a>
+                </form>
+              </div>
+            </div>
+        </div>
+      </div>
+    </div> -->

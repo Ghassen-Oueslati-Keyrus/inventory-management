@@ -1,0 +1,34 @@
+<header id="header" class="header fixed-top d-flex align-items-center">
+  <div class="container d-flex align-items-center justify-content-between">
+    <a href="index.html" class="logo d-flex align-items-center me-auto me-lg-0">
+      <!-- Uncomment the line below if you also wish to use an image logo -->
+       <img src="assets/img/Logo.jpg" alt="" id="logo">
+      <!-- <h1><span>.</span></h1> -->
+    </a>
+
+    <nav id="navbar" class="navbar">
+      <ul>
+        <li><a routerLink="localisation">Localisation</a></li>
+        <li><a routerLink="contactez-nous">Contactez-nous</a></li>
+        <li class="dropdown">
+           <a class="btn-book-a-table" routerLink="{{isLoggedIn?'profile':'login'}}">
+            <span class="bi bi-person" ></span></a>
+          <ul>
+            <li *ngIf="!isLoggedIn"><a routerLink="login">Connecter</a></li>
+            <li *ngIf="!isLoggedIn"><a routerLink="signup">Enregistrer</a></li>
+             <li *ngIf="moderatorRole()"><a routerLink="dashbord">Gestion des produits</a></li>
+             <li *ngIf="adminRole()"><a routerLink="accounts">Gestion des comptes</a></li>
+             <li *ngIf="moderatorRole()"><a routerLink="devisList">Gestion des devis</a></li>
+            <li *ngIf="isLoggedIn">
+              <a routerLink="/" (click)="logout()" routerLink="">Deconnexion</a></li>
+          </ul>
+        </li>
+      </ul>
+    </nav><!-- .navbar -->
+
+    <!-- <a class="btn-book-a-table" href="#book-a-table"><span class="bi bi-person"></span></a>  -->
+   <i class="mobile-nav-toggle mobile-nav-show bi bi-list"></i>
+    <i class="mobile-nav-toggle mobile-nav-hide d-none bi bi-x"></i> 
+  </div>
+
+</header><!-- End Header -->

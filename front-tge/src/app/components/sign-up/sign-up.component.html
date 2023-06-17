@@ -1,0 +1,110 @@
+
+<div id="login" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="login-form border p-5">
+            <div class="section-header">
+              <p id="font">Enregistrer</p><br>
+              <h2 class="lead" style="font-size: small;">
+                Vous-avez déjà un compte? <a routerLink="/login"> Connecter maintenant</a>
+              </h2>
+            </div>
+            <form [formGroup]='signupForm'>
+
+              <div class="form-group mb-4">
+                <label for="#">Entrer votre nom</label>
+                <input type="text" class="form-control" placeholder="Prénom" formControlName="lastName"
+                  (onblur)="generateUsername()">
+                <div *ngIf="signupForm.controls['lastName'].invalid && 
+                  (signupForm.controls['lastName'].dirty || 
+                  signupForm.controls['lastName'].touched)">
+                  <div *ngIf="signupForm.controls['lastName'].errors.minlength" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le prenom doit avoir au moins 3 caractéres !
+                  </div>
+                  <div *ngIf="signupForm.controls['lastName'].errors.required" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le prenom est obligatoire !
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-4">
+                <label for="#">Entrer votre prénom</label>
+                <input type="text" class="form-control" formControlName="firstName" placeholder="Nom"
+                  (onblur)="generateUsername()">
+                <div *ngIf="signupForm.controls['firstName'].invalid && 
+                  (signupForm.controls['firstName'].dirty || 
+                  signupForm.controls['firstName'].touched)">
+                  <div *ngIf="signupForm.controls['firstName'].errors.minlength" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"> </i>Le nom doit avoir au moins 4 caractéres !
+                  </div>
+                  <div *ngIf="signupForm.controls['firstName'].errors.required" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le nom est obligatoire !
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-4">
+                <label for="#">Entrer votre pseudonyme </label><br><span id="info">NB: Ce pseudonyme sera utilisé lors de la connexion.</span>
+                <input (keydown)="errorUsernameCancel()" type="text" class="form-control" placeholder="pseudonyme"
+                  formControlName="Username" (blur)=" usernameVerification($event)" >
+                <div *ngIf="signupForm.controls['Username'].invalid && 
+                  (signupForm.controls['Username'].dirty || 
+                  signupForm.controls['Username'].touched)">
+                  <div *ngIf="signupForm.controls['Username'].errors.minlength" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le pseudonyme doit avoir au moins 8 caractéres !
+                  </div>
+                  <div *ngIf="signupForm.controls['Username'].errors.required" style="color: red;">
+                    <i class="bi bi-info-circle" aria-required="true"></i> Le pseudonyme est obligatoire !
+                  </div>
+                </div>
+                <div *ngIf="usernameExists" style="color : red;"><i class="bi bi-info-circle" aria-required="true"></i> Pseudonyme déjà utilisé</div>
+              </div>
+              <div class="form-group mb-4">
+                <label for="#">Entrer votre addresse email </label>
+                <input type="text" class="form-control" placeholder="Exemple@exemple.ex" formControlName="Email"
+                  (keydown)="errorEmailCancel()" (blur)="emailVerification($event)">
+                <div
+                  *ngIf="signupForm.controls['Email'].invalid && (signupForm.controls['Email'].dirty || signupForm.controls['Email'].touched)">
+                  <div *ngIf="signupForm.controls['Email'].errors.email" style="color : red;"><i class="bi bi-info-circle" aria-required="true"> </i> Email invalide !</div>
+                  <div *ngIf="signupForm.controls['Email'].errors.required" style="color : red;"><i class="bi bi-info-circle" aria-required="true"> </i> Email obligatoire!
+                  </div>
+                </div>
+                <div *ngIf="emailExists" style="color : red;">Email déjà utilisé</div>
+              </div>
+              <div class="form-group mb-4">
+                <label for="#">Entrer votre Mot de passe</label>
+                <input type="password" class="form-control" placeholder="********" formControlName="Mdp">
+                <div
+                  *ngIf="signupForm.controls['Mdp'].invalid && (signupForm.controls['Mdp'].dirty || signupForm.controls['Mdp'].touched)">
+                  <div *ngIf="signupForm.controls['Mdp'].errors.minlength" style="color : red;"><i
+                      class="bi bi-info-circle" aria-required="true"></i> Mot de passe doit
+                    avoir
+                    au moins 8 caractéres !</div>
+                  <div *ngIf="signupForm.controls['Mdp'].errors.required" style="color : red;"> <i
+                      class="bi bi-info-circle" aria-required="true"></i> Mot de passe est
+                    obligatoire !</div>
+                    <div *ngIf="signupForm.controls['Mdp'].errors.invalidPassword" style="color : red;">
+                      <i class="bi bi-info-circle" aria-required="true"></i>
+                      Le mot de passe doit contenir au moins une majuscule, un chiffre et un caractère spécial.
+                    </div>
+                </div>
+              </div>
+              <div class="form-group">
+                <label for="#">Confirmer votre Mot de passe</label>
+                <input type="password" class="form-control" placeholder="********" formControlName="mdpConfirmation">
+                <div
+                  *ngIf="signupForm.controls['mdpConfirmation'].invalid && (signupForm.controls['mdpConfirmation'].dirty || signupForm.controls['mdpConfirmation'].touched)">
+                  <div *ngIf="signupForm.controls['mdpConfirmation'].errors.confirmPasswordValidator"
+                    style="color : red;"> <i class="bi bi-info-circle" aria-required="true"></i> La confirmation est incorrecte !</div>
+                  <div *ngIf="signupForm.controls['mdpConfirmation'].errors.required" style="color : red;"><i class="bi bi-info-circle" aria-required="true"></i> La
+                    confirmation du mot de passe est obligatoire !</div>
+                </div>
+              </div>
+  
+              <button type="submit" class="btn-book-a-table"style="margin-top: 50px;"
+                (click)="signup(signupForm.value)">Enregistrer</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>

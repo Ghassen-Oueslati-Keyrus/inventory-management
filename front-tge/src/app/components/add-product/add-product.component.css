@@ -1,0 +1,42 @@
+mat-grid-tile{
+    border : 1px solid #890d0e;
+}
+.btn-remove-image{
+    position: absolute;
+    cursor: pointer;
+    top: -20px;
+    right: -20px;
+    color: red;
+    border-radius: 100%;
+    width: 20px;
+    height: auto;
+    text-align: center;
+    border: none;
+}
+.dropzone{
+    height: 150px;
+    min-width: 100px;
+    display: table;
+    background-color: #eee;
+    width: 300px;
+    border: dashed 1px #890d0e;
+    border-radius: 10px;
+
+}
+.text-wrapper{
+    display: table-cell;
+    vertical-align: middle;
+}
+.centered{
+    text-align: center;
+}
+.depose-button{
+    cursor: pointer;
+}
+.btn-book-a-table{
+    border: #890d0e;
+}
+#font{
+    font-size: 50px;
+    font-weight: bold;
+}

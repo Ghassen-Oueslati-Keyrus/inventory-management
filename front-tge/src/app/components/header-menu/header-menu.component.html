@@ -1,0 +1,20 @@
+<app-header></app-header>
+<header id="header1" class="align-items-center" style="margin-top: 75px; height: 75px; " >
+  <div class="container d-flex align-items-center justify-content-center">
+    <nav class="navbar1" id="menu" style="padding-top: 20px;" >
+      <ul class="col-md-12">
+        <li><a id="font" routerLink="">Acceuil</a></li>
+        <li><a id="font" routerLink="entreprise">Entreprise</a></li>
+        <li><a id="font" routerLink="list">Vente</a></li>
+        <li><a id="font"  routerLink="loc">Location</a></li>
+        <li><a id="font" routerLink="service">Service</a></li>
+        <li class="dropdown"><a id="font" style="cursor: pointer;"><span>Catégories</span> <i class="bi bi-chevron-down dropdown-indicator"></i></a>
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown5">
+            <li *ngFor="let category of categories"><a (click)="displayCategory(category.id)" style="cursor: pointer;">{{category.name}}</a></li>
+        </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</header>
+<span id="line"></span>  

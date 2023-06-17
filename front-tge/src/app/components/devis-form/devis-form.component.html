@@ -1,0 +1,102 @@
+<div class="hero d-flex align-items-center" style="padding-top: 30px;">
+    <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-6">
+                <div class="login-form border p-5">
+                    <div class="section-header">
+                        <p id="font" class="mb-2" style="padding-bottom: 10px;">Demander un devis</p>
+                    </div>
+                    <form class="php-email-form p-3 p-md-4" [formGroup]="devisForm">
+                        <div class="form-group  mb-4">
+                            <label>Entreprise</label>
+                            <input type="text" class="form-control" placeholder="Entreprise"
+                                formControlName="entreprise" [(ngModel)]="devis.entreprise">
+                            <div
+                                *ngIf="devisForm.controls['entreprise'].invalid && (devisForm.controls['entreprise'].dirty || devisForm.controls['entreprise'].touched)">
+                                <div *ngIf="devisForm.controls['entreprise'].errors.required" style="color : red;"><i
+                                        class="bi bi-info-circle" aria-required="true"> </i> Le nom de l'entreprise est
+                                    obligatoire!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group  mb-4">
+                            <label>Numéro Télephone</label>
+                            <input type="text" class="form-control" placeholder="+216 12 123 456"
+                                [(ngModel)]="devis.number" formControlName="number">
+                                <div
+                                *ngIf="devisForm.controls['number'].invalid && (devisForm.controls['number'].dirty || devisForm.controls['number'].touched)">
+                                <div *ngIf="devisForm.controls['number'].errors.required" style="color : red;"><i
+                                        class="bi bi-info-circle" aria-required="true"> </i> Le numéro est
+                                    obligatoire!
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group  mb-4">
+                            <label>Préférence pour la prise de contact <span id="etoile">*</span> </label><br>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="radio1" name="preference"
+                                    formControlName="preference" value="Telephone"
+                                    [(ngModel)]="devis.preference">
+                                <label class="form-check-label" for="radio1">Telephone</label>
+                            </div>
+                            <div class="form-check">
+                                <input type="radio" class="form-check-input" id="radio2" name="preference" value="Email"
+                                formControlName="preference" [(ngModel)]="devis.preference" checked>
+                                <label class="form-check-label" for="radio2">Email</label>
+                            </div>
+                            <div
+                            *ngIf="devisForm.controls['preference'].invalid && (devisForm.controls['preference'].dirty || devisForm.controls['preference'].touched)">
+                            <div *ngIf="devisForm.controls['preference'].errors.required" style="color : red;"><i
+                                    class="bi bi-info-circle" aria-required="true"> </i> La préference de contact est
+                                obligatoire!
+                            </div>
+                        </div>
+                        </div>
+                        <div class="form-group mb-4">
+                            <label>Pays</label>
+                            <input type="text" class="form-control" placeholder="Pays du projet.. "
+                                [(ngModel)]="devis.country" formControlName="country">
+                                <div
+                                *ngIf="devisForm.controls['country'].invalid && (devisForm.controls['country'].dirty || devisForm.controls['country'].touched)">
+                                <div *ngIf="devisForm.controls['country'].errors.required" style="color : red;"><i
+                                        class="bi bi-info-circle" aria-required="true"> </i> Le pays est
+                                    obligatoire!
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <div class="form-group mb-4">
+                            <label>Détailles</label>
+                            <textarea type="text" class="form-control" id="text" rows="5"
+                                placeholder="Veuillez remplir tous les details de votre projet..."
+                                [(ngModel)]="devis.details" required formControlName="details"></textarea>
+                                <div
+                                *ngIf="devisForm.controls['details'].invalid && (devisForm.controls['details'].dirty || devisForm.controls['details'].touched)">
+                                <div *ngIf="devisForm.controls['details'].errors.required" style="color : red;"><i
+                                        class="bi bi-info-circle" aria-required="true"> </i> Veuillez remplir les details de votre projet
+                                </div>
+                            </div>
+                        </div><br>
+
+                        <div class="form-group  mb-4">
+                            <label>Code postal</label>
+                            <input type="text" class="form-control" placeholder="Code postal du projet"
+                                [(ngModel)]="devis.codePostal" formControlName="codePostal">
+                                <div
+                                *ngIf="devisForm.controls['codePostal'].invalid && (devisForm.controls['codePostal'].dirty || devisForm.controls['codePostal'].touched)">
+                                <div *ngIf="devisForm.controls['codePostal'].errors.required" style="color : red;"><i
+                                        class="bi bi-info-circle" aria-required="true"> </i> Le code postal est
+                                    obligatoire!
+                                </div>
+                            </div>
+                        </div><br>
+                        <div class="row">
+                            <div class="text-center"><button type="submit" (click)="addDevis()">Demander devis</button>
+                            </div>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,21 @@
+#font{
+    font-size: 50px;
+    font-weight: bold;
+}
+#mdp{
+    background-color: white;
+    border-color:  #890d0e;
+    color:  #890d0e;
+    height: 35px;
+    text-align: center;
+    padding: 5px;
+    font-size:small;
+    cursor: pointer;
+
+}
+#title{
+    font-family: cursive;
+    font-size: large;
+    font-weight: bold;
+    text-align: left;
+}

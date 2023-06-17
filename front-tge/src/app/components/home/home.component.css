@@ -1,0 +1,13 @@
+#font{
+    font-size: 50px;
+    font-weight: bold;
+}
+a{text-decoration:none;}
+.menu-img{
+    height:250px ;
+    padding-top: 10px;
+}
+.why-box{
+    margin-top: 20px;
+    border-radius: 20px;
+}

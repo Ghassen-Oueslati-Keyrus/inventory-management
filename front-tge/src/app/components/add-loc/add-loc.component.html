@@ -1,0 +1,225 @@
+<div id="login" class="hero d-flex align-items-center">
+    <div class="container">
+      <div class="row justify-content-center">
+        <div class="col-lg-6">
+          <div class="login-form border p-5">
+            <div class="section-header">
+              <p id="font" class="mb-2" style="padding-bottom: 10px;">Ajouter une location</p> 
+            </div>
+            <form [formGroup]="productForm" (ngSubmit)="addProduct()" class="row">
+              <div class="form-group  mb-4 col-lg-6">
+                <label>Nom</label>
+                <input type="text" class="form-control" placeholder="Nom du produit" [(ngModel)]="product.name"
+                  formControlName="name">
+                <div
+                  *ngIf="productForm.controls['name'].invalid && (productForm.controls['name'].dirty || productForm.controls['name'].touched)">
+                  <div *ngIf="productForm.controls['name'].errors.required" style="color : red;"><i
+                      class="bi bi-info-circle" aria-required="true"> </i> Le nom du produit est obligatoire!
+                  </div>
+                </div>
+              </div>
+                  <div class="form-group  mb-4 col-lg-6">
+                    <label>Quantité</label>
+                    <input type="number" class="form-control" placeholder="Quantité" [(ngModel)]="product.quantity"
+                      formControlName="quantity">
+                    <div
+                      *ngIf="productForm.controls['quantity'].invalid && (productForm.controls['quantity'].dirty || productForm.controls['name'].touched)">
+                      <div *ngIf="productForm.controls['quantity'].errors.required" style="color : red;"><i
+                          class="bi bi-info-circle" aria-required="true"> </i> La quantité du produit est obligatoire!
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group mb-4 col-lg-6">
+                    <label>Prix</label>
+                    <input type="number" class="form-control" placeholder="Prix" [(ngModel)]="product.price"
+                      formControlName="price">
+                    <div
+                      *ngIf="productForm.controls['price'].invalid && (productForm.controls['price'].dirty || productForm.controls['price'].touched)">
+                      <div *ngIf="productForm.controls['price'].errors.required" style="color : red;"><i
+                          class="bi bi-info-circle" aria-required="true"> </i> Le prix du produit est obligatoire!
+                      </div>
+                    </div>
+                  </div>
+              <div class="form-group mb-4 col-lg-6">
+                <label>Catégorie</label>
+                <select class="form-select" aria-label="Default select example" [(ngModel)]="product.categoryId"
+                  formControlName="category">
+                  <option selected value=""> Choisissez une catégorie </option>
+                  <option *ngFor="let cat of categories" [value]="cat.id">{{cat.name}}</option>
+                </select>
+                <div
+                  *ngIf="productForm.controls['category'].invalid && (productForm.controls['category'].dirty || productForm.controls['category'].touched)">
+                  <div *ngIf="productForm.controls['category'].errors.required" style="color : red;"><i
+                      class="bi bi-info-circle" aria-required="true"> </i> La category du produit est obligatoire!
+                  </div>
+                </div>
+              </div>
+              <div class="form-group mb-4 col-lg-6">
+                <label>Marque </label>
+                <input type="text" class="form-control" placeholder="Marque" [(ngModel)]="product.brand"
+                  formControlName="brand">
+              </div>
+              <div class="form-group  mb-4 col-lg-6">
+                <label>Nombre d'heures</label>
+                <input type="number" class="form-control" placeholder="Quantité" [(ngModel)]="product.nombreHeures"
+                [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group mb-4 col-lg-6">
+                <label>Marque </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Marque" [(ngModel)]="product.brand"
+                 >
+              </div>
+  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Description </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Description" [(ngModel)]="product.description"
+                 >
+              </div>
+              <div class="form-group  mb-4 col-lg-6">
+                <label>Nombre d'heures</label>
+                <input type="number" class="form-control" placeholder="Quantité" [(ngModel)]="product.nombreHeures"
+                [ngModelOptions]="{standalone: true}">
+              </div>
+              <div class="form-group mb-4 col-lg-6">
+                <label>Type du groupe electrogene </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="groupeElectrogeneType" [(ngModel)]="product.groupeElectrogeneType"
+                  >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Puissance continue : </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="puissanceContinue" [(ngModel)]="product.puissanceContinue"
+                 >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Origine :</label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="origine" [(ngModel)]="product.origine"
+                 >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Moteur : </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Moteur" [(ngModel)]="product.moteur"
+                  >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Alternateur : </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Alternateur" [(ngModel)]="product.alternateur"
+                  >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Refroidissement </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Refroidissement" [(ngModel)]="product.refroidissement"
+                  >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Nombre de cylindres : </label>
+                <input type="number" class="form-control" placeholder="Nombre de cylindres" [(ngModel)]="product.nombreCylindres"
+                  >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Démarrage : </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Démarrage" [(ngModel)]="product.demarrage"
+                 >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Carte de démarrage </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="carteDemarrage" [(ngModel)]="product.carteDemarrage"
+                 >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Consommation </label>
+                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="Consommation" [(ngModel)]="product.consommation"
+                  >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Poids </label>
+                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="poids" [(ngModel)]="product.poids"
+                 >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Dimensions : </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="dimension" [(ngModel)]="product.dimension"
+                 >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Volume expedié : </label>
+                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="volumeExpedie" [(ngModel)]="product.volumeExpedie"
+               >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Type de carburant </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="typeCarburant" [(ngModel)]="product.typeCarburant"
+                >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Capacité du réservoir carburant </label>
+                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="capaciteReservoirCarburant" [(ngModel)]="product.capaciteReservoirCarburant"
+                 >
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Vitesse moteur </label>
+                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="vitesseMoteur" [(ngModel)]="product.vitesseMoteur"
+                >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Ampérage : </label>
+                <input type="number" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="amperage" [(ngModel)]="product.amperage"
+                >
+  
+              </div>  
+              <div class="form-group mb-4 col-lg-6">
+                <label>Type d'alimentation : </label>
+                <input type="text" class="form-control" [ngModelOptions]="{standalone: true}" placeholder="typeAlimentation" [(ngModel)]="product.typeAlimentation"
+                >
+              </div>  
+              <div class="form-group mb-4">
+                <label>Photos </label><br>
+                <a (click)="selectFile.click()" class="depose-button">
+
+                  <div class="dropzone" appDrag (files)="fileDropped($event)">
+
+                    <div class="text-wrapper">
+                      <div class="centered">
+                        Glisser ou bien déposer vos photos
+                      </div>
+                    </div>
+                  </div>
+                </a>
+
+                <input type="file" multiple value="select" #selectFile (change)="onFileSelected($event)"
+                  style="display: none;">
+              </div>
+              <div class="mt-5">
+                <div class="row">
+                  <mat-grid-list cols="2" rowHeight="1:1">
+                    <mat-grid-tile *ngFor="let file of product.photos; let i = index; ">
+                      <div style="position: relative; border-radius: 100px;">
+                        <span class="btn-remove-image" (click)="removeImage(i)"><i class="bi-trash-fill"></i></span>
+                        <img [src]="file.url" width="180px" height="180px">
+                      </div>                      
+                    </mat-grid-tile>
+                  </mat-grid-list>
+                </div>
+              </div><br>
+              <div class="row">
+                <div class="col-md-2"></div>
+              <input type="submit" class="btn-book-a-table col-lg-3" style="background-color:green; box-shadow: green;"  value="Ajouter" />
+              <div class="col-md-2"></div>
+              <input type="reset" class="btn-book-a-table col-lg-3" (click)="removeImages()" value="Effacer" />
+              <div class="col-md-2"></div>
+            </div>
+            </form>
+            </div>
+          </div>
+      </div>
+    </div>
+  </div>

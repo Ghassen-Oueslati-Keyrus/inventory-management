@@ -1,0 +1,14 @@
+#font{
+    font-size: 50px;
+    font-weight: bold;
+}
+#loc{
+    border:0; 
+    width: 100%; 
+    height: 350px;
+    box-shadow: none;
+    border-radius: 30px;
+}
+#loc:hover{
+        box-shadow: 0 4px 10px rgba(0,0,0,0.16), 0 4px 10px rgba(0,0,0,0.23);
+}

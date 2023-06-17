@@ -1,0 +1,99 @@
+<section class="padding-y">
+  <div class="container">
+
+    <div class="row">
+
+      <h4 class="title text-dark" id="name">{{product.name}} </h4><br>
+      <aside class="col-lg-6 ">
+        <article>
+
+          <carousel class="mg-big-wrap " [noWrap]="true" [interval]="0" [(activeSlide)]="currentPhotoIndex">
+            <div class="glightbox">
+              <slide data-fslightbox="mygalley" data-type="image" *ngFor="let photo of product.photos; let i = index">
+                <img height="560" [src]="photo.url" class="d-block w-100 img" (click)="currentPhotoIndex = i">
+              </slide>
+            </div>
+          </carousel>
+
+        </article>
+      </aside>
+
+
+
+      <main class="col-lg-6">
+        <article class="ps-lg-3">
+          <div class="product-wrap">
+            <dd class="col-6"><span><img src="assets/img/etiquette-de-prix.png" id="icon"> Réf : </span>
+              <span id="ref">{{product.reference}}</span>
+            </dd>
+            <dd class="col-6" *ngIf="product.location == true"><span id="loc"> <i class="bi bi-journal-plus"></i>
+                Location</span></dd>
+            <hr><br>
+
+            <div class="mb-3" id="price">
+              <var class="price h5">{{product.price}}Dt<span *ngIf="product.location == true">/Jour</span></var>
+            </div>
+
+          </div><br>
+          <div class="product-wrap">
+            <dl class="row">
+              <dt class="col-6 mt-2" *ngIf="product.description">Description: </dt>
+              <dd *ngIf="product.description">{{product.description}}</dd>
+
+              <dt class="col-6 mt-2" >Categories:</dt>
+              <dd class="col-6 mt-2" >{{category.name}}</dd>
+
+              <dt class="col-6 mt-2" *ngIf="product.brand">Marque:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.brand">{{product.brand}} </dd>
+
+              <dt class="font-weight-bold text-capitalize product-meta-title col-6">Disponibilité: </dt>
+              <span class="col-6 mt-2" *ngIf="product.quantity > 0"> <i class="bi bi-check-circle" style="color:green;"> En
+                  Stock</i></span>
+              <span class="col-6 mt-2" *ngIf="product.quantity == 0"> <i class="bi bi-x-circle" style="color:red;"> En
+                  rupture de stock</i></span>
+              <br>
+              <dt class="col-6 mt-2" *ngIf="moderatorRole()">Quantité:</dt>
+              <dd class="col-6  mt-2" *ngIf="moderatorRole()">{{product.quantity}} articles</dd>
+              <dt class="col-6 mt-2" *ngIf="product.nombreHeures">Nombre d'heures:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.nombreHeures">{{product.nombreHeures}} Heures</dd>
+              <dt class="col-6  mt-2" *ngIf="product.groupeElectrogeneType">Groupe électrogene type:</dt>
+              <dd class="col-6  mt-2" *ngIf="product.groupeElectrogeneType">{{product.groupeElectrogeneType}} </dd>
+              <dt class="col-6  mt-2" *ngIf="product.puissanceContinue">Puissance continu:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.puissanceContinue">{{product.puissanceContinue}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.origine">Origine:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.origine">{{product.origine}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.moteur">Moteur:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.moteur">{{product.moteur}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.nombreCylindres">Nombre de cylindres:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.nombreCylindres">{{product.nombreCylindres
+                }} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.refroidissement">Refroidissement: </dt>
+              <dd class="col-6 mt-2" *ngIf="product.refroidissement">{{product.refroidissement}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.alternateur">Alternateurs</dt>
+              <dd class="col-6 mt-2" *ngIf="product.alternateur">{{product.alternateur}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.carteDemarrage">Carte de démmarage:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.carteDemarrage">{{product.carteDemarrage}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.capotage">Option de capotage:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.capotage">{{product.capotage}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.typeCarburant">Type de carburant:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.typeCarburant">{{product.typeCarburant}} </dd>
+              <dt class="col-6 mt-2" *ngIf="product.capaciteReservoirCarburant">Capacité du réservoir de carburant: </dt>
+              <dd class="col-6 mt-2" *ngIf="product.capaciteReservoirCarburant">{{product.capaciteReservoirCarburant}} L </dd>
+              <dt class="col-6 mt-2" *ngIf="product.vitesseMoteur">Vitesse moteur</dt>
+              <dd class="col-6 mt-2" *ngIf="product.vitesseMoteur">{{product.vitesseMoteur}} tours/min</dd>
+              <dt class="col-6 mt-2" *ngIf="product.amperage">Ampérage:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.amperage">{{product.amperage}} A</dd>
+              <dt class="col-6 mt-2" *ngIf="product.typeAlimentation">Type d'alimentation électrique:</dt>
+              <dd class="col-6 mt-2" *ngIf="product.typeAlimentation">{{product.typeAlimentation}} </dd>
+              <div class="row">
+                <div class="col-lg-7"></div>
+                <a (click)="demanderDevis()" class="btn-book-a-table col-lg-5 demanderDevis" >Demander devis</a>
+              </div>
+            </dl>
+          </div>
+        </article>
+      </main>
+    </div>
+  </div>
+
+</section>

@@ -1,0 +1,29 @@
+<div class="products">
+ 
+    <div class="product-wrap">
+
+        <div class="image">
+       
+        <a (click)="showProduct(product.id)" style="cursor : pointer;">
+      
+            <span class="onsale" *ngIf="product.quantity == 0" style="text-align: right; text-transform: capitalize;">Pas disponible</span>
+            <img 
+              class="img-fluid w-100 mb-3  sized" [src]="product.photos[0].url" alt="product-img" />
+               <span class="label" *ngIf="product.discountedPrice != 0">-%{{reduction}}</span>
+            </a>
+           
+        </div>
+    <div class="product-info" >
+        <h3>{{product.name}}</h3>
+        <h3 style="font-size: small;">{{product.description | slice:0:30}}{{product.description.length>30?'...':''}}</h3>
+                <del *ngIf="product.discountedPrice != 0" style="color: red;">{{product.price}}Dt
+                    <pre wp-pre-tag-3="" ></pre>
+                </del>
+                <span class="price">
+            <span *ngIf="product.discountedPrice == 0" >{{product.price}}Dt/Jour</span>
+            <span *ngIf="product.discountedPrice != 0">{{product.discountedPrice}}Dt/Jour</span>
+        </span>      
+    </div>
+    </div> 
+   
+</div>
